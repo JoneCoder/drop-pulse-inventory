@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { dropController } from '../controllers/drop.controller';
+import { dropController } from '../container';
 import { createDropValidation, reserveItemValidation, purchaseItemValidation } from '../middleware/validator';
 import { authenticateJWT } from '../middleware/auth.middleware';
 

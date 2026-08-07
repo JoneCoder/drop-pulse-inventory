@@ -217,4 +217,3 @@ export class ReservationService {
     }, intervalMs);
   }
 }
-export const reservationService = new ReservationService();
