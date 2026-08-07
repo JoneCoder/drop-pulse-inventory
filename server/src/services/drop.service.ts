@@ -27,7 +27,7 @@ export class DropService {
         {
           model: Purchase,
           as: 'purchases',
-          limit: 5,
+          limit: 3,
           order: [['created_at', 'DESC']],
           include: [
             {

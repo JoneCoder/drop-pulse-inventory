@@ -61,7 +61,7 @@ export const DropCard: React.FC<DropCardProps> = ({ drop, isLoggedIn, onRequireA
 
     const onPurchaseCompleted = (data: { dropId: string; username: string }) => {
       if (data.dropId === drop.id) {
-        setPurchasers((prev) => [data.username, ...prev.slice(0, 4)]);
+        setPurchasers((prev) => [data.username, ...prev.slice(0, 2)]);
         showToast(`⚡ ${data.username} secured a pair!`, 'success');
       }
     };
