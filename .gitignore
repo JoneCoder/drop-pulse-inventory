@@ -1,0 +1,19 @@
+# Node & Dependency Cache
+node_modules/
+
+# Environment Variables
+.env
+.env*.local
+
+# IDE/Editors Configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS / File System
+.DS_Store
+Thumbs.db
