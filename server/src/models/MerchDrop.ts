@@ -52,7 +52,7 @@ MerchDrop.init(
   },
   {
     sequelize,
-    tableName: 'MerchDrops',
+    tableName: 'merch_drops',
     underscored: true,
     timestamps: true,
   }

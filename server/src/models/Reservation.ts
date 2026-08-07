@@ -41,7 +41,7 @@ Reservation.init(
   },
   {
     sequelize,
-    tableName: 'Reservations',
+    tableName: 'reservations',
     underscored: true,
     timestamps: true,
     indexes: [

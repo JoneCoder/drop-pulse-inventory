@@ -45,7 +45,7 @@ Purchase.init(
   },
   {
     sequelize,
-    tableName: 'Purchases',
+    tableName: 'purchases',
     underscored: true,
     timestamps: true,
   }
