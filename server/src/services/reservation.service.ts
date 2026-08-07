@@ -7,7 +7,9 @@ import { ReserveDropResponseDto } from '../dtos/drop.dto';
 export class ReservationService {
   constructor() {
     // Start periodic background job to reclaim expired reservations (e.g. every 5 seconds)
-    this.startExpirationScheduler(5000);
+    if (process.env.NODE_ENV !== 'test') {
+      this.startExpirationScheduler(5000);
+    }
   }
 
   /**
