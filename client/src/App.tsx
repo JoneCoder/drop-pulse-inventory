@@ -48,7 +48,7 @@ function App() {
   const fetchDrops = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE}/api/drops`);
+      const response = await fetch(`${API_BASE}/api/v1/drops`);
       const data = await response.json();
       if (response.ok) {
         setDrops(data);

@@ -24,7 +24,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
     setError(null);
     setLoading(true);
 
-    const endpoint = isRegister ? `${API_BASE}/api/auth/register` : `${API_BASE}/api/auth/login`;
+    const endpoint = isRegister ? `${API_BASE}/api/v1/auth/register` : `${API_BASE}/api/v1/auth/login`;
     const payload = isRegister ? { username, email, password } : { email, password };
 
     try {

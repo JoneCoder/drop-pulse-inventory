@@ -11,7 +11,7 @@ describe('Drop Routes (Feature)', () => {
     jest.clearAllMocks();
   });
 
-  describe('GET /api/drops', () => {
+  describe('GET /api/v1/drops', () => {
     it('should return list of active drops', async () => {
       const mockDrops = [
         { id: 'drop-1', name: 'Jordan 1', price: 150, total_stock: 10, available_stock: 10 }
@@ -19,7 +19,7 @@ describe('Drop Routes (Feature)', () => {
 
       const spy = jest.spyOn(dropService, 'getActiveDrops').mockResolvedValue(mockDrops as any);
 
-      const res = await request(app).get('/api/drops');
+      const res = await request(app).get('/api/v1/drops');
 
       expect(res.status).toBe(200);
       expect(res.body).toEqual(mockDrops);
@@ -27,7 +27,7 @@ describe('Drop Routes (Feature)', () => {
     });
   });
 
-  describe('POST /api/drops/create', () => {
+  describe('POST /api/v1/drops/create', () => {
     it('should create a drop successfully', async () => {
       const dropData = {
         name: 'Jordan 4 Retro',
@@ -40,7 +40,7 @@ describe('Drop Routes (Feature)', () => {
       const spy = jest.spyOn(dropService, 'createDrop').mockResolvedValue(mockResponse as any);
 
       const res = await request(app)
-        .post('/api/drops/create')
+        .post('/api/v1/drops/create')
         .send(dropData);
 
       expect(res.status).toBe(201);
@@ -50,7 +50,7 @@ describe('Drop Routes (Feature)', () => {
 
     it('should return 422 if create request is invalid', async () => {
       const res = await request(app)
-        .post('/api/drops/create')
+        .post('/api/v1/drops/create')
         .send({
           name: '',
           price: -10,
@@ -63,7 +63,7 @@ describe('Drop Routes (Feature)', () => {
     });
   });
 
-  describe('POST /api/drops/reserve', () => {
+  describe('POST /api/v1/drops/reserve', () => {
     const dropId = 'f47ac10b-58cc-4372-a567-0e02b2c3d479'; // valid uuid
 
     it('should reserve an item successfully when authorized', async () => {
@@ -76,7 +76,7 @@ describe('Drop Routes (Feature)', () => {
       const spy = jest.spyOn(reservationService, 'createReservation').mockResolvedValue(mockResponse as any);
 
       const res = await request(app)
-        .post('/api/drops/reserve')
+        .post('/api/v1/drops/reserve')
         .set('Authorization', `Bearer ${validToken}`)
         .send({ drop_id: dropId });
 
@@ -87,7 +87,7 @@ describe('Drop Routes (Feature)', () => {
 
     it('should return 401 if token is not provided', async () => {
       const res = await request(app)
-        .post('/api/drops/reserve')
+        .post('/api/v1/drops/reserve')
         .send({ drop_id: dropId });
 
       expect(res.status).toBe(401);
@@ -95,7 +95,7 @@ describe('Drop Routes (Feature)', () => {
     });
   });
 
-  describe('POST /api/drops/purchase', () => {
+  describe('POST /api/v1/drops/purchase', () => {
     const reservationId = 'f47ac10b-58cc-4372-a567-0e02b2c3d479'; // valid uuid
 
     it('should complete purchase successfully when authorized', async () => {
@@ -110,7 +110,7 @@ describe('Drop Routes (Feature)', () => {
       const spy = jest.spyOn(reservationService, 'purchaseItem').mockResolvedValue(mockResponse as any);
 
       const res = await request(app)
-        .post('/api/drops/purchase')
+        .post('/api/v1/drops/purchase')
         .set('Authorization', `Bearer ${validToken}`)
         .send({ reservation_id: reservationId });
 

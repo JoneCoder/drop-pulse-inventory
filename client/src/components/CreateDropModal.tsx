@@ -33,7 +33,7 @@ export const CreateDropModal: React.FC<CreateDropModalProps> = ({ isOpen, onClos
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API_BASE}/api/drops/create`, {
+      const response = await fetch(`${API_BASE}/api/v1/drops/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

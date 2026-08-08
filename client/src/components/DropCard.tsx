@@ -131,7 +131,7 @@ export const DropCard: React.FC<DropCardProps> = ({ drop, isLoggedIn, onRequireA
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API_BASE}/api/drops/reserve`, {
+      const response = await fetch(`${API_BASE}/api/v1/drops/reserve`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ export const DropCard: React.FC<DropCardProps> = ({ drop, isLoggedIn, onRequireA
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API_BASE}/api/drops/purchase`, {
+      const response = await fetch(`${API_BASE}/api/v1/drops/purchase`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

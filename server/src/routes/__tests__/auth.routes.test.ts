@@ -7,7 +7,7 @@ describe('Auth Routes (Feature)', () => {
     jest.clearAllMocks();
   });
 
-  describe('POST /api/auth/register', () => {
+  describe('POST /api/v1/auth/register', () => {
     it('should register a new user successfully and return 201', async () => {
       const mockResponse = {
         token: 'token123',
@@ -17,7 +17,7 @@ describe('Auth Routes (Feature)', () => {
       const spy = jest.spyOn(authService, 'register').mockResolvedValue(mockResponse);
 
       const res = await request(app)
-        .post('/api/auth/register')
+        .post('/api/v1/auth/register')
         .send({
           username: 'testuser',
           email: 'test@example.com',
@@ -35,7 +35,7 @@ describe('Auth Routes (Feature)', () => {
 
     it('should return validation error if input is invalid', async () => {
       const res = await request(app)
-        .post('/api/auth/register')
+        .post('/api/v1/auth/register')
         .send({
           username: '',
           email: 'not-an-email',
@@ -49,7 +49,7 @@ describe('Auth Routes (Feature)', () => {
     });
   });
 
-  describe('POST /api/auth/login', () => {
+  describe('POST /api/v1/auth/login', () => {
     it('should login successfully and return 200', async () => {
       const mockResponse = {
         token: 'token123',
@@ -59,7 +59,7 @@ describe('Auth Routes (Feature)', () => {
       const spy = jest.spyOn(authService, 'login').mockResolvedValue(mockResponse);
 
       const res = await request(app)
-        .post('/api/auth/login')
+        .post('/api/v1/auth/login')
         .send({
           email: 'test@example.com',
           password: 'password123'
@@ -75,7 +75,7 @@ describe('Auth Routes (Feature)', () => {
 
     it('should return 422 if credentials are blank or invalid email format', async () => {
       const res = await request(app)
-        .post('/api/auth/login')
+        .post('/api/v1/auth/login')
         .send({
           email: '',
           password: ''
