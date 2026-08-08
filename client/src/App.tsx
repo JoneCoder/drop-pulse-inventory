@@ -235,6 +235,7 @@ function App() {
                   drop={drop}
                   isLoggedIn={!!token}
                   onRequireAuth={() => setIsAuthOpen(true)}
+                  onPurchaseSuccess={fetchDrops}
                 />
               ))}
             </div>

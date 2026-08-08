@@ -23,9 +23,10 @@ interface DropCardProps {
   drop: DropData;
   isLoggedIn: boolean;
   onRequireAuth: () => void;
+  onPurchaseSuccess?: () => void;
 }
 
-export const DropCard: React.FC<DropCardProps> = ({ drop, isLoggedIn, onRequireAuth }) => {
+export const DropCard: React.FC<DropCardProps> = ({ drop, isLoggedIn, onRequireAuth, onPurchaseSuccess }) => {
   const [stock, setStock] = useState(drop.available_stock);
   const [purchasers, setPurchasers] = useState<Array<string>>(() => {
     return drop.purchases?.map((p) => p.user?.username || 'Buyer') || [];
@@ -180,6 +181,9 @@ export const DropCard: React.FC<DropCardProps> = ({ drop, isLoggedIn, onRequireA
       setReservationId(null);
       setTimeLeft(0);
       showToast('Order confirmed! Check your profile.', 'success');
+      if (onPurchaseSuccess) {
+        onPurchaseSuccess();
+      }
     } catch (err: any) {
       showToast(err.message || 'Error processing purchase', 'error');
     } finally {
