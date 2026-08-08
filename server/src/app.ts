@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://drop-pulse-inventory-o12458812.vercel.app'],
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://drop-pulse-inventory.vercel.app'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
