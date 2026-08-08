@@ -44,6 +44,7 @@ describe('AuthService', () => {
       const result = await authService.register(dto);
 
       expect(User.findOne).toHaveBeenCalledWith({ where: { email: dto.email } });
+      expect(User.findOne).toHaveBeenCalledWith({ where: { username: dto.username } });
       expect(bcrypt.hash).toHaveBeenCalledWith(dto.password, 10);
       expect(User.create).toHaveBeenCalledWith({
         username: dto.username,
@@ -67,8 +68,8 @@ describe('AuthService', () => {
         password: 'password123'
       };
 
-      // Mock User.findOne to return an existing user
-      (User.findOne as jest.Mock).mockResolvedValue({ id: 'existing-id' });
+      // Mock User.findOne to return an existing user on the first call (email check)
+      (User.findOne as jest.Mock).mockResolvedValueOnce({ id: 'existing-id' });
 
       await expect(authService.register(dto)).rejects.toEqual({
         status: 409,
@@ -76,6 +77,28 @@ describe('AuthService', () => {
       });
 
       expect(User.findOne).toHaveBeenCalledWith({ where: { email: dto.email } });
+      expect(User.create).not.toHaveBeenCalled();
+    });
+
+    it('should throw conflict error if username is already taken', async () => {
+      const dto = {
+        username: 'testuser',
+        email: 'test@example.com',
+        password: 'password123'
+      };
+
+      // Mock User.findOne to return null for email check, then return existing user for username check
+      (User.findOne as jest.Mock)
+        .mockResolvedValueOnce(null) // email check
+        .mockResolvedValueOnce({ id: 'existing-id' }); // username check
+
+      await expect(authService.register(dto)).rejects.toEqual({
+        status: 409,
+        message: 'Username already taken'
+      });
+
+      expect(User.findOne).toHaveBeenCalledWith({ where: { email: dto.email } });
+      expect(User.findOne).toHaveBeenCalledWith({ where: { username: dto.username } });
       expect(User.create).not.toHaveBeenCalled();
     });
   });

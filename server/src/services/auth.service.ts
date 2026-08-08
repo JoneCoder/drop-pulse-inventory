@@ -18,6 +18,14 @@ export class AuthService {
       throw { status: 409, message: 'Email already registered' };
     }
 
+    const existingUsername = await User.findOne({
+      where: { username: dto.username }
+    });
+
+    if (existingUsername) {
+      throw { status: 409, message: 'Username already taken' };
+    }
+
     const passwordHash = await bcrypt.hash(dto.password || 'default_pass', 10);
 
     const user = await User.create({
